@@ -69,18 +69,6 @@ const ProfileHeader: React.FC = () => {
               </div>
 
               <div className='d-flex my-4'>
-                <a href='#' className='btn btn-sm btn-light me-2' id='kt_user_follow_button'>
-                  <KTSVG
-                    path='/media/icons/duotune/arrows/arr012.svg'
-                    className='svg-icon-3 d-none'
-                  />
-
-                  <span className='indicator-label'>Follow</span>
-                  <span className='indicator-progress'>
-                    Please wait...
-                    <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
-                  </span>
-                </a>
                 <a
                   href='#'
                   className='btn btn-sm btn-primary me-3'
@@ -89,17 +77,6 @@ const ProfileHeader: React.FC = () => {
                 >
                   Hire Me
                 </a>
-                <div className='me-0'>
-                  <button
-                    className='btn btn-sm btn-icon btn-bg-light btn-active-color-primary'
-                    data-kt-menu-trigger='click'
-                    data-kt-menu-placement='bottom-end'
-                    data-kt-menu-flip='top-end'
-                  >
-                    <i className='bi bi-three-dots fs-3'></i>
-                  </button>
-                  <Dropdown1 />
-                </div>
               </div>
             </div>
 
@@ -146,7 +123,7 @@ const ProfileHeader: React.FC = () => {
 
               <div className='d-flex align-items-center w-200px w-sm-300px flex-column mt-3'>
                 <div className='d-flex justify-content-between w-100 mt-auto mb-2'>
-                  <span className='fw-semibold fs-6 text-gray-400'>Profile Compleation</span>
+                  <span className='fw-semibold fs-6 text-gray-400'>Profile Completion</span>
                   <span className='fw-bold fs-6'>50%</span>
                 </div>
                 <div className='h-5px mx-3 w-100 bg-light mb-3'>
@@ -167,9 +144,9 @@ const ProfileHeader: React.FC = () => {
               <Link
                 className={
                   `nav-link text-active-primary me-6 ` +
-                  (location.pathname === '/crafted/pages/profile/overview' && 'active')
+                  (location.pathname === '/pages/profile/overview' && 'active')
                 }
-                to='/crafted/pages/profile/overview'
+                to='/pages/profile/overview'
               >
                 Overview
               </Link>
@@ -178,31 +155,22 @@ const ProfileHeader: React.FC = () => {
               <Link
                 className={
                   `nav-link text-active-primary me-6 ` +
-                  (location.pathname === '/crafted/pages/profile/projects' && 'active')
+                  (location.pathname === '/pages/profile/projects' && 'active')
                 }
-                to='/crafted/pages/profile/projects'
+                to='/pages/profile/projects'
               >
                 Projects
               </Link>
             </li>
+
+
             <li className='nav-item'>
               <Link
                 className={
                   `nav-link text-active-primary me-6 ` +
-                  (location.pathname === '/crafted/pages/profile/campaigns' && 'active')
+                  (location.pathname === '/pages/profile/documents' && 'active')
                 }
-                to='/crafted/pages/profile/campaigns'
-              >
-                Campaigns
-              </Link>
-            </li>
-            <li className='nav-item'>
-              <Link
-                className={
-                  `nav-link text-active-primary me-6 ` +
-                  (location.pathname === '/crafted/pages/profile/documents' && 'active')
-                }
-                to='/crafted/pages/profile/documents'
+                to='/pages/profile/documents'
               >
                 Documents
               </Link>
@@ -211,11 +179,11 @@ const ProfileHeader: React.FC = () => {
               <Link
                 className={
                   `nav-link text-active-primary me-6 ` +
-                  (location.pathname === '/crafted/pages/profile/connections' && 'active')
+                  (location.pathname === '/pages/profile/settings' && 'active')
                 }
-                to='/crafted/pages/profile/connections'
+                to='/pages/profile/settings'
               >
-                Connections
+                Settings
               </Link>
             </li>
           </ul>

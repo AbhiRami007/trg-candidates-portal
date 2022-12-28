@@ -60,7 +60,7 @@ const ActivityDrawer: FC = () => (
         </div>
       </div>
       <div className='card-footer py-5 text-center' id='kt_activities_footer'>
-        <Link to='/crafted/pages/profile' className='btn btn-bg-white text-primary'>
+        <Link to='/pages/profile' className='btn btn-bg-white text-primary'>
           View All Activities
           <KTSVG
             path='/media/icons/duotune/arrows/arr064.svg'

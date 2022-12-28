@@ -80,10 +80,7 @@ const HeaderNotificationsMenu: FC = () => (
         </div>
 
         <div className='py-3 text-center border-top'>
-          <Link
-            to='/crafted/pages/profile'
-            className='btn btn-color-gray-600 btn-active-color-primary'
-          >
+          <Link to='/pages/profile' className='btn btn-color-gray-600 btn-active-color-primary'>
             View All <KTSVG path='/media/icons/duotune/arrows/arr064.svg' className='svg-icon-5' />
           </Link>
         </div>
@@ -139,10 +136,7 @@ const HeaderNotificationsMenu: FC = () => (
           ))}
         </div>
         <div className='py-3 text-center border-top'>
-          <Link
-            to='/crafted/pages/profile'
-            className='btn btn-color-gray-600 btn-active-color-primary'
-          >
+          <Link to='/pages/profile' className='btn btn-color-gray-600 btn-active-color-primary'>
             View All <KTSVG path='/media/icons/duotune/arrows/arr064.svg' className='svg-icon-5' />
           </Link>
         </div>

@@ -1,7 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, {useState} from 'react'
 import {KTSVG, toAbsoluteUrl} from '../../../../../../_metronic/helpers'
-import {IConnectedAccounts, connectedAccounts} from '../SettingsModel'
+import {
+  IConnectedAccounts,
+  connectedAccounts,
+} from '../../../../profile/components/settings/SettingsModel'
 
 const ConnectedAccounts: React.FC = () => {
   const [data, setData] = useState<IConnectedAccounts>(connectedAccounts)
@@ -103,7 +106,9 @@ const ConnectedAccounts: React.FC = () => {
                   <a href='#' className='fs-5 text-dark text-hover-primary fw-bold'>
                     Github
                   </a>
-                  <div className='fs-6 fw-semibold text-gray-400'>Keep eye on on your Repositories</div>
+                  <div className='fs-6 fw-semibold text-gray-400'>
+                    Keep eye on on your Repositories
+                  </div>
                 </div>
               </div>
               <div className='d-flex justify-content-end'>
@@ -138,7 +143,9 @@ const ConnectedAccounts: React.FC = () => {
                   <a href='#' className='fs-5 text-dark text-hover-primary fw-bold'>
                     Slack
                   </a>
-                  <div className='fs-6 fw-semibold text-gray-400'>Integrate Projects Discussions</div>
+                  <div className='fs-6 fw-semibold text-gray-400'>
+                    Integrate Projects Discussions
+                  </div>
                 </div>
               </div>
               <div className='d-flex justify-content-end'>

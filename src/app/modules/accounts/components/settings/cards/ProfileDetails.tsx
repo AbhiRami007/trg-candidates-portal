@@ -1,14 +1,18 @@
 import React, {useState} from 'react'
 import {toAbsoluteUrl} from '../../../../../../_metronic/helpers'
-import {IProfileDetails, profileDetailsInitValues as initialValues} from '../SettingsModel'
+import {
+  IProfileDetails,
+  profileDetailsInitValues as initialValues,
+} from '../../../../profile/components/settings/SettingsModel'
 import * as Yup from 'yup'
 import {useFormik} from 'formik'
 
 const profileDetailsSchema = Yup.object().shape({
   fName: Yup.string().required('First name is required'),
   lName: Yup.string().required('Last name is required'),
+  position: Yup.string().required('Position name is required'),
   company: Yup.string().required('Company name is required'),
-  contactPhone: Yup.string().required('Contact phone is required'),
+  phone: Yup.string().required('Contact phone is required'),
   companySite: Yup.string().required('Company site is required'),
   country: Yup.string().required('Country is required'),
   language: Yup.string().required('Language is required'),
@@ -30,9 +34,6 @@ const ProfileDetails: React.FC = () => {
     onSubmit: (values) => {
       setLoading(true)
       setTimeout(() => {
-        values.communications.email = data.communications.email
-        values.communications.phone = data.communications.phone
-        values.allowMarketing = data.allowMarketing
         const updatedData = Object.assign(data, values)
         setData(updatedData)
         setLoading(false)
@@ -58,7 +59,7 @@ const ProfileDetails: React.FC = () => {
       <div id='kt_account_profile_details' className='collapse show'>
         <form onSubmit={formik.handleSubmit} noValidate className='form'>
           <div className='card-body border-top p-9'>
-            <div className='row mb-6'>
+            {/* <div className='row mb-6'>
               <label className='col-lg-4 col-form-label fw-semibold fs-6'>Avatar</label>
               <div className='col-lg-8'>
                 <div
@@ -71,6 +72,48 @@ const ProfileDetails: React.FC = () => {
                     style={{backgroundImage: `url(${toAbsoluteUrl(data.avatar)})`}}
                   ></div>
                 </div>
+              </div>
+            </div> */}
+
+            <div className='row mb-6'>
+              <label className='col-lg-4 col-form-label fw-semobold fs-6'>Avatar</label>
+
+              <div className='col-lg-8'>
+                <div
+                  className='image-input image-input-outline'
+                  data-kt-image-input='true'
+                  style={{backgroundImage: `url("${toAbsoluteUrl('/media/avatars/blank.png')}")`}}
+                >
+                  <div
+                    className='image-input-wrapper w-125px h-125px'
+                    style={{
+                      backgroundImage: `url("${toAbsoluteUrl('/media/avatars/300-23.jpg')}")`,
+                    }}
+                  ></div>
+
+                  <label
+                    className='btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow'
+                    data-kt-image-input-action='change'
+                    data-bs-toggle='tooltip'
+                    title='Change avatar'
+                  >
+                    <i className='bi bi-pencil-fill fs-7'></i>
+
+                    <input type='file' name='avatar' accept='.png, .jpg, .jpeg' />
+                    <input type='hidden' name='avatar_remove' />
+                  </label>
+
+                  <span
+                    className='btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow'
+                    data-kt-image-input-action='remove'
+                    data-bs-toggle='tooltip'
+                    title='Remove avatar'
+                  >
+                    <i className='bi bi-x fs-2'></i>
+                  </span>
+                </div>
+
+                <div className='form-text'>Allowed file types: png, jpg, jpeg.</div>
               </div>
             </div>
 
@@ -86,9 +129,9 @@ const ProfileDetails: React.FC = () => {
                       placeholder='First name'
                       {...formik.getFieldProps('fName')}
                     />
-                    {formik.touched.fName && formik.errors.fName && (
+                    {formik.touched.first_name && formik.errors.first_name && (
                       <div className='fv-plugins-message-container'>
-                        <div className='fv-help-block'>{formik.errors.fName}</div>
+                        <div className='fv-help-block'>{formik.errors.first_name}</div>
                       </div>
                     )}
                   </div>
@@ -100,13 +143,31 @@ const ProfileDetails: React.FC = () => {
                       placeholder='Last name'
                       {...formik.getFieldProps('lName')}
                     />
-                    {formik.touched.lName && formik.errors.lName && (
+                    {formik.touched.last_name && formik.errors.last_name && (
                       <div className='fv-plugins-message-container'>
-                        <div className='fv-help-block'>{formik.errors.lName}</div>
+                        <div className='fv-help-block'>{formik.errors.last_name}</div>
                       </div>
                     )}
                   </div>
                 </div>
+              </div>
+            </div>
+
+            <div className='row mb-6'>
+              <label className='col-lg-4 col-form-label required fw-semibold fs-6'>Position</label>
+
+              <div className='col-lg-8 fv-row'>
+                <input
+                  type='text'
+                  className='form-control form-control-lg form-control-solid'
+                  placeholder='Job Title/ Position'
+                  {...formik.getFieldProps('position')}
+                />
+                {formik.touched.position && formik.errors.position && (
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'>{formik.errors.position}</div>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -138,31 +199,11 @@ const ProfileDetails: React.FC = () => {
                   type='tel'
                   className='form-control form-control-lg form-control-solid'
                   placeholder='Phone number'
-                  {...formik.getFieldProps('contactPhone')}
+                  {...formik.getFieldProps('phone')}
                 />
-                {formik.touched.contactPhone && formik.errors.contactPhone && (
+                {formik.touched.phone && formik.errors.phone && (
                   <div className='fv-plugins-message-container'>
-                    <div className='fv-help-block'>{formik.errors.contactPhone}</div>
-                  </div>
-                )}
-              </div>
-            </div>
-
-            <div className='row mb-6'>
-              <label className='col-lg-4 col-form-label fw-semibold fs-6'>
-                <span className='required'>Company Site</span>
-              </label>
-
-              <div className='col-lg-8 fv-row'>
-                <input
-                  type='text'
-                  className='form-control form-control-lg form-control-solid'
-                  placeholder='Company website'
-                  {...formik.getFieldProps('companySite')}
-                />
-                {formik.touched.companySite && formik.errors.companySite && (
-                  <div className='fv-plugins-message-container'>
-                    <div className='fv-help-block'>{formik.errors.companySite}</div>
+                    <div className='fv-help-block'>{formik.errors.phone}</div>
                   </div>
                 )}
               </div>
@@ -665,9 +706,9 @@ const ProfileDetails: React.FC = () => {
                   <option value='Wellington'>(GMT+12:00) Wellington</option>
                   <option value="Nuku'alofa">(GMT+13:00) Nuku'alofa</option>
                 </select>
-                {formik.touched.timeZone && formik.errors.timeZone && (
+                {formik.touched.time_zone && formik.errors.time_zone && (
                   <div className='fv-plugins-message-container'>
-                    <div className='fv-help-block'>{formik.errors.timeZone}</div>
+                    <div className='fv-help-block'>{formik.errors.time_zone}</div>
                   </div>
                 )}
               </div>
@@ -695,69 +736,6 @@ const ProfileDetails: React.FC = () => {
                     <div className='fv-help-block'>{formik.errors.currency}</div>
                   </div>
                 )}
-              </div>
-            </div>
-
-            <div className='row mb-6'>
-              <label className='col-lg-4 col-form-label fw-semibold fs-6'>Communication</label>
-
-              <div className='col-lg-8 fv-row'>
-                <div className='d-flex align-items-center mt-3'>
-                  <label className='form-check form-check-inline form-check-solid me-5'>
-                    <input
-                      className='form-check-input'
-                      name='communication[]'
-                      type='checkbox'
-                      defaultChecked={data.communications?.email}
-                      onChange={() => {
-                        updateData({
-                          communications: {
-                            email: !data.communications?.email,
-                            phone: data.communications?.phone,
-                          },
-                        })
-                      }}
-                    />
-                    <span className='fw-semibold ps-2 fs-6'>Email</span>
-                  </label>
-
-                  <label className='form-check form-check-inline form-check-solid'>
-                    <input
-                      className='form-check-input'
-                      name='communication[]'
-                      type='checkbox'
-                      defaultChecked={data.communications?.phone}
-                      onChange={() => {
-                        updateData({
-                          communications: {
-                            email: data.communications?.email,
-                            phone: !data.communications?.phone,
-                          },
-                        })
-                      }}
-                    />
-                    <span className='fw-semibold ps-2 fs-6'>Phone</span>
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div className='row mb-0'>
-              <label className='col-lg-4 col-form-label fw-semibold fs-6'>Allow Marketing</label>
-
-              <div className='col-lg-8 d-flex align-items-center'>
-                <div className='form-check form-check-solid form-switch fv-row'>
-                  <input
-                    className='form-check-input w-45px h-30px'
-                    type='checkbox'
-                    id='allowmarketing'
-                    defaultChecked={data.allowMarketing}
-                    onChange={() => {
-                      updateData({allowMarketing: !data.allowMarketing})
-                    }}
-                  />
-                  <label className='form-check-label'></label>
-                </div>
               </div>
             </div>
           </div>

@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {INotifications, notifications} from '../SettingsModel'
+import {INotifications, notifications} from '../../../../profile/components/settings/SettingsModel'
 
 const Notifications: React.FC = () => {
   const [data, setData] = useState<INotifications>(notifications)

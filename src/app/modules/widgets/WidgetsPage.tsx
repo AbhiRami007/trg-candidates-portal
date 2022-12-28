@@ -10,7 +10,7 @@ import {Statistics} from './components/Statistics'
 const widgetsBreadCrumbs: Array<PageLink> = [
   {
     title: 'Widgets',
-    path: '/crafted/widgets/charts',
+    path: '/widgets/charts',
     isSeparator: false,
     isActive: false,
   },
@@ -80,7 +80,7 @@ const WidgetsPage = () => {
             </>
           }
         />
-        <Route index element={<Navigate to='/crafted/widgets/lists' />} />
+        <Route index element={<Navigate to='/widgets/lists' />} />
       </Route>
     </Routes>
   )

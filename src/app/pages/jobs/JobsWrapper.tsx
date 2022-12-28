@@ -1,8 +1,8 @@
 import {FC} from 'react'
 import {PageTitle} from '../../../_metronic/layout/core'
-import {JobsListing} from '../jobs/JobsListing'
+import {JobsListing} from './JobsListing'
 
-const BuilderPageWrapper: FC = () => {
+const JobsWrapper: FC = () => {
   return (
     <>
       <PageTitle breadcrumbs={[]}>Jobs</PageTitle>
@@ -11,4 +11,4 @@ const BuilderPageWrapper: FC = () => {
   )
 }
 
-export default BuilderPageWrapper
+export default JobsWrapper

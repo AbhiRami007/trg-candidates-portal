@@ -795,17 +795,8 @@ const MenuTestPage: FC = () => {
                           <span className='menu-title'>Projects</span>
                         </a>
                       </div>
-                      <div className='menu-item'>
-                        <a
-                          className='menu-link'
-                          href='/keenthemes/products/themes/start/html/demo1/dist/?page=pages/profile/campaigns'
-                        >
-                          <span className='menu-bullet'>
-                            <span className='bullet bullet-dot'></span>
-                          </span>
-                          <span className='menu-title'>Campaigns</span>
-                        </a>
-                      </div>
+
+
                       <div className='menu-item'>
                         <a
                           className='menu-link'

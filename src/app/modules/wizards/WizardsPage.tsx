@@ -6,7 +6,7 @@ import {Horizontal} from './components/Horizontal'
 const wizardsBreadCrumbs: Array<PageLink> = [
   {
     title: 'Wizards',
-    path: '/crafted/pages/wizards/horizontal',
+    path: '/pages/wizards/horizontal',
     isSeparator: false,
     isActive: false,
   },
@@ -39,7 +39,7 @@ const WizardsPage = () => (
           </>
         }
       />
-      <Route index element={<Navigate to='/crafted/pages/wizards/horizontal' />} />
+      <Route index element={<Navigate to='/pages/wizards/horizontal' />} />
     </Route>
   </Routes>
 )

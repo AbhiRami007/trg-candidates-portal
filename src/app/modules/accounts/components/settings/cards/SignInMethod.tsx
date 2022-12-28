@@ -3,7 +3,12 @@ import React, {useState} from 'react'
 import {KTSVG} from '../../../../../../_metronic/helpers'
 import * as Yup from 'yup'
 import {useFormik} from 'formik'
-import {IUpdatePassword, IUpdateEmail, updatePassword, updateEmail} from '../SettingsModel'
+import {
+  IUpdatePassword,
+  IUpdateEmail,
+  updatePassword,
+  updateEmail,
+} from '../../../../profile/components/settings/SettingsModel'
 
 const emailFormValidationSchema = Yup.object().shape({
   newEmail: Yup.string()
