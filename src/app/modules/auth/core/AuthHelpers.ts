@@ -42,6 +42,7 @@ const removeAuth = () => {
 
   try {
     localStorage.removeItem(AUTH_LOCAL_STORAGE_KEY)
+    localStorage.removeItem("userData")
   } catch (error) {
     console.error('AUTH LOCAL STORAGE REMOVE ERROR', error)
   }
