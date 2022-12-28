@@ -43,6 +43,7 @@ export function Login() {
         const {data: auth} = await login(values.email, values.password)
         saveAuth(auth)
         const {data: user} = await getUserByToken(auth.api_token)
+        localStorage.setItem('userData', JSON.stringify(user))
         setCurrentUser(user)
       } catch (error) {
         console.error(error)
@@ -73,16 +74,9 @@ export function Login() {
       </div>
       {/* begin::Heading */}
 
-      {formik.status ? (
+      {formik.status && (
         <div className='mb-lg-15 alert alert-danger'>
           <div className='alert-text font-weight-bold'>{formik.status}</div>
-        </div>
-      ) : (
-        <div className='mb-10 bg-light-info p-8 rounded'>
-          <div className='text-info'>
-            Use account <strong>admin@demo.com</strong> and password <strong>demo</strong> to
-            continue.
-          </div>
         </div>
       )}
 

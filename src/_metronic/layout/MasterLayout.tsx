@@ -2,7 +2,6 @@ import {FC, useEffect} from 'react'
 import {Outlet} from 'react-router-dom'
 import {AsideDefault} from './components/aside/AsideDefault'
 import {Footer} from './components/Footer'
-import {HeaderWrapper} from './components/header/HeaderWrapper'
 import {Toolbar} from './components/toolbar/Toolbar'
 import {ScrollTop} from './components/ScrollTop'
 import {Content} from './components/Content'
@@ -33,8 +32,6 @@ const MasterLayout: FC<WithChildren> = ({children}) => {
     <PageDataProvider>
       <div className='page d-flex flex-row flex-column-fluid'>
         <div className='wrapper d-flex flex-column flex-row-fluid' id='kt_wrapper'>
-          <HeaderWrapper />
-
           <div id='kt_content' className='content d-flex flex-column flex-column-fluid'>
             <Toolbar />
             <div
