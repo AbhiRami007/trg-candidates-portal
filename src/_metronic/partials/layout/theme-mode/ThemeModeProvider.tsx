@@ -14,8 +14,9 @@ type ThemeModeContextType = {
 const themeModeSwitchHelper = (_mode: ThemeModeType) => {
   // change background image url
   const mode = _mode !== 'system' ? _mode : systemMode
-  const imageUrl = '/media/patterns/header-bg' + (mode === 'light' ? '.jpg' : '-dark.png')
+  const imageUrl = '/media/patterns/header-bg' + (mode === 'light' ? '.png' : '-dark.png')
   document.body.style.backgroundImage = `url("${toAbsoluteUrl(imageUrl)}")`
+  // document.body.style.backgroundColor = '#292562'
 }
 
 const themeModeLSKey = 'kt_theme_mode_value'
