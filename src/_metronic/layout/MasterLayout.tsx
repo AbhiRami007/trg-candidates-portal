@@ -12,6 +12,7 @@ import {MenuComponent} from '../../_metronic/assets/ts/components'
 import clsx from 'clsx'
 import {WithChildren} from '../helpers'
 import {themeModeSwitchHelper, useThemeMode} from '../partials/layout/theme-mode/ThemeModeProvider'
+import {AuthNav} from '../../app/modules/auth/AuthNav'
 
 const MasterLayout: FC<WithChildren> = ({children}) => {
   const {classes} = useLayout()
@@ -32,6 +33,7 @@ const MasterLayout: FC<WithChildren> = ({children}) => {
     <PageDataProvider>
       <div className='page d-flex flex-row flex-column-fluid'>
         <div className='wrapper d-flex flex-column flex-row-fluid' id='kt_wrapper'>
+          <AuthNav />
           <div id='kt_content' className='content d-flex flex-column flex-column-fluid'>
             <Toolbar />
             <div

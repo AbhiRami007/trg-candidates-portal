@@ -15,6 +15,7 @@ const AuthLayout = () => {
 
   return (
     <>
+      <AuthNav />
       <div
         className='body'
         // className='d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed h-100px'
