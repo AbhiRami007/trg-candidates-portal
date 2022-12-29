@@ -50,13 +50,23 @@ export function Login() {
       } catch (error) {
         console.error(error)
         saveAuth(undefined)
-        setStatus('The login detail is incorrect')
+        setStatus('Login details are incorrect')
         setSubmitting(false)
         setLoading(false)
       }
     },
   })
-  const notify = () => toast('Wow so easy!')
+  const notifySuccess = (message: string) => {
+    toast.success(message, {
+      position: toast.POSITION.TOP_RIGHT,
+    })
+  }
+
+  const notifyError = (message: string) => {
+    toast.error(message, {
+      position: toast.POSITION.TOP_RIGHT,
+    })
+  }
 
   return (
     <form
@@ -77,12 +87,8 @@ export function Login() {
       </div>
       {/* begin::Heading */}
 
-      {formik.status && (
-        // <div className='mb-lg-15 alert alert-danger'>
-        //   <div className='alert-text font-weight-bold'>{formik.status}</div>
-        // </div>
+      {formik.status && formik.errors && (
         <div>
-          <button onClick={notify}>Notify!</button>
           <ToastContainer />
         </div>
       )}
@@ -141,6 +147,7 @@ export function Login() {
             {
               'is-invalid': formik.touched.password && formik.errors.password,
             },
+
             {
               'is-valid': formik.touched.password && !formik.errors.password,
             }
@@ -157,15 +164,18 @@ export function Login() {
       {/* end::Form group */}
 
       {/* begin::Action */}
-      <div className='text-center'>
+      <div
+        className='text-center'
+        onClick={() => {
+          formik.status && formik.errors
+            ? notifyError(formik.status)
+            : formik.status && !formik.errors && notifySuccess(formik.status)
+        }}
+      >
         <button
           type='submit'
           id='kt_sign_in_submit'
-          className={
-            formik.isSubmitting || !formik.isValid
-              ? 'btn btn-lg  bg-theme w-100 mb-3'
-              : 'btn btn-lg  bg-theme w-100 mb-3'
-          }
+          className='btn btn-lg  bg-theme w-100 mb-3'
           disabled={formik.isSubmitting || !formik.isValid}
         >
           {!loading && <span className=' indicator-label'>Continue</span>}
