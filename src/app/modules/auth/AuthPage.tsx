@@ -44,7 +44,7 @@ const AuthLayout = () => {
 
         </div> */}
 
-        <div className='flex'>
+        <div className='flex  mb-4'>
           <div className='one'>
             <div className='w-lg-500px bg-body rounded shadow-sm p-10 p-lg-5 mx-auto mt-50'>
               <Outlet />

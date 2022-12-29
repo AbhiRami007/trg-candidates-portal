@@ -7,6 +7,8 @@ import {useFormik} from 'formik'
 import {getUserByToken, login} from '../core/_requests'
 import {toAbsoluteUrl} from '../../../../_metronic/helpers'
 import {useAuth} from '../core/Auth'
+import {ToastContainer, toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const loginSchema = Yup.object().shape({
   email: Yup.string()
@@ -54,6 +56,7 @@ export function Login() {
       }
     },
   })
+  const notify = () => toast('Wow so easy!')
 
   return (
     <form
@@ -63,8 +66,8 @@ export function Login() {
       id='kt_login_signin_form'
     >
       {/* begin::Heading */}
-      <div className='text-center mb-10'>
-        <h1 className='text-theme mb-3'>Sign In</h1>
+      <div className='text-center mb-5'>
+        <h1 className='text-theme mb-1'>Sign In</h1>
         <div className='text-gray-400 fw-semibold fs-4'>
           New Here?{' '}
           <Link to='/auth/registration' className='text-theme-yellow fw-bold'>
@@ -75,8 +78,12 @@ export function Login() {
       {/* begin::Heading */}
 
       {formik.status && (
-        <div className='mb-lg-15 alert alert-danger'>
-          <div className='alert-text font-weight-bold'>{formik.status}</div>
+        // <div className='mb-lg-15 alert alert-danger'>
+        //   <div className='alert-text font-weight-bold'>{formik.status}</div>
+        // </div>
+        <div>
+          <button onClick={notify}>Notify!</button>
+          <ToastContainer />
         </div>
       )}
 
@@ -97,9 +104,11 @@ export function Login() {
           name='email'
           autoComplete='off'
         />
-        {formik.touched.email && formik.errors.email && (
+        {formik.touched.password && formik.errors.password && (
           <div className='fv-plugins-message-container'>
-            <span role='alert'>{formik.errors.email}</span>
+            <div className='fv-help-block'>
+              <span role='alert'>{formik.errors.email}</span>
+            </div>
           </div>
         )}
       </div>
@@ -149,30 +158,24 @@ export function Login() {
 
       {/* begin::Action */}
       <div className='text-center'>
-        {!loading && (
-          <button
-            type='submit'
-            id='kt_sign_in_submit'
-            className='btn btn-lg  bg-theme w-100 mb-3'
-            disabled={formik.isSubmitting || !formik.isValid}
-          >
-            <span className='indicator-label'>Continue</span>
-          </button>
-        )}
-
-        {loading && (
-          <button
-            type='submit'
-            id='kt_sign_in_submit'
-            className='btn btn-lg bg-theme w-100 mb-3'
-            disabled={formik.isSubmitting || !formik.isValid}
-          >
+        <button
+          type='submit'
+          id='kt_sign_in_submit'
+          className={
+            formik.isSubmitting || !formik.isValid
+              ? 'btn btn-lg  bg-theme w-100 mb-3'
+              : 'btn btn-lg  bg-theme w-100 mb-3'
+          }
+          disabled={formik.isSubmitting || !formik.isValid}
+        >
+          {!loading && <span className=' indicator-label'>Continue</span>}
+          {loading && (
             <span className='indicator-progress' style={{display: 'block'}}>
               Please wait...
               <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
             </span>
-          </button>
-        )}
+          )}
+        </button>
 
         {/* begin::Separator */}
         <div className='text-center text-muted text-uppercase fw-bold mb-3 '>or</div>

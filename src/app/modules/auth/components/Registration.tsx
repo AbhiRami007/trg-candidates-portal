@@ -80,40 +80,35 @@ export function Registration() {
 
   return (
     <form
-      className='form w-100 fv-plugins-bootstrap5 fv-plugins-framework'
+      className='form w-75  ml-65'
       noValidate
       id='kt_login_signup_form'
       onSubmit={formik.handleSubmit}
     >
       {/* begin::Heading */}
-      <div className='mb-10 text-center'>
-        {/* begin::Title */}
-        <h1 className='text-dark mb-3'>Create an Account</h1>
-        {/* end::Title */}
-
-        {/* begin::Link */}
+      <div className='text-center mb-5 mt-5'>
+        <h1 className='text-theme mb-1'>Create an Account</h1>
         <div className='text-gray-400 fw-semibold fs-4'>
-          Already have an account?
-          <Link to='/auth/login' className='link-primary fw-bold' style={{marginLeft: '5px'}}>
+          Have an account?{' '}
+          <Link to='/auth/login' className='text-theme-yellow fw-bold'>
             Forgot Password ?
           </Link>
         </div>
-        {/* end::Link */}
       </div>
-      {/* end::Heading */}
+      {/* begin::Heading */}
 
       {/* begin::Action */}
-      <button type='button' className='btn btn-light-primary fw-bold w-100 mb-10'>
+      <a href='#' className='btn  btn-flex flex-center bg-theme btn-lg w-100 mb-3'>
         <img
           alt='Logo'
           src={toAbsoluteUrl('/media/svg/brand-logos/google-icon.svg')}
           className='h-20px me-3'
         />
-        Sign in with Google
-      </button>
+        Sign In with Google
+      </a>
       {/* end::Action */}
 
-      <div className='d-flex align-items-center mb-10'>
+      <div className='d-flex align-items-center mb-2'>
         <div className='border-bottom border-gray-300 mw-50 w-100'></div>
         <span className='fw-semibold text-gray-400 fs-7 mx-2'>OR</span>
         <div className='border-bottom border-gray-300 mw-50 w-100'></div>
@@ -126,7 +121,7 @@ export function Registration() {
       )}
 
       {/* begin::Form group Firstname */}
-      <div className='row fv-row mb-7'>
+      <div className='row fv-row mb-2'>
         <div className='col-xl-6'>
           <label className='class="form-label fw-bold text-dark fs-6'>First name</label>
           <input
@@ -153,39 +148,35 @@ export function Registration() {
           )}
         </div>
         <div className='col-xl-6'>
-          {/* begin::Form group Lastname */}
-          <div className='fv-row mb-5'>
-            <label className='form-label fw-bold text-dark fs-6'>Last name</label>
-            <input
-              placeholder='Last name'
-              type='text'
-              autoComplete='off'
-              {...formik.getFieldProps('lastname')}
-              className={clsx(
-                'form-control form-control-lg form-control-solid',
-                {
-                  'is-invalid': formik.touched.lastname && formik.errors.lastname,
-                },
-                {
-                  'is-valid': formik.touched.lastname && !formik.errors.lastname,
-                }
-              )}
-            />
-            {formik.touched.lastname && formik.errors.lastname && (
-              <div className='fv-plugins-message-container'>
-                <div className='fv-help-block'>
-                  <span role='alert'>{formik.errors.lastname}</span>
-                </div>
-              </div>
+          <label className='class="form-label fw-bold text-dark fs-6'>Last Name</label>
+          <input
+            placeholder='Last name'
+            type='text'
+            autoComplete='off'
+            {...formik.getFieldProps('lastname')}
+            className={clsx(
+              'form-control form-control-lg form-control-solid',
+              {
+                'is-invalid': formik.touched.lastname && formik.errors.lastname,
+              },
+              {
+                'is-valid': formik.touched.lastname && !formik.errors.lastname,
+              }
             )}
-          </div>
-          {/* end::Form group */}
+          />
+          {formik.touched.lastname && formik.errors.lastname && (
+            <div className='fv-plugins-message-container'>
+              <div className='fv-help-block'>
+                <span role='alert'>{formik.errors.lastname}</span>
+              </div>
+            </div>
+          )}
         </div>
       </div>
       {/* end::Form group */}
 
       {/* begin::Form group Email */}
-      <div className='fv-row mb-7'>
+      <div className='fv-row mb-2'>
         <label className='form-label fw-bold text-dark fs-6'>Email</label>
         <input
           placeholder='Email'
@@ -211,7 +202,7 @@ export function Registration() {
       {/* end::Form group */}
 
       {/* begin::Form group Password */}
-      <div className='mb-10 fv-row' data-kt-password-meter='true'>
+      <div className='mb-2 fv-row' data-kt-password-meter='true'>
         <div className='mb-1'>
           <label className='form-label fw-bold text-dark fs-6'>Password</label>
           <div className='position-relative mb-3'>
@@ -298,7 +289,7 @@ export function Registration() {
             htmlFor='kt_login_toc_agree'
           >
             I Agree the{' '}
-            <Link to='/auth/terms' className='ms-1 link-primary'>
+            <Link to='/auth/terms' className='text-theme-yellow fw-bold'>
               terms and conditions
             </Link>
             .
@@ -319,7 +310,7 @@ export function Registration() {
         <button
           type='submit'
           id='kt_sign_up_submit'
-          className='btn btn-lg btn-primary w-100 mb-5'
+          className='btn btn-lg  bg-theme w-100 mb-1'
           disabled={formik.isSubmitting || !formik.isValid || !formik.values.acceptTerms}
         >
           {!loading && <span className='indicator-label'>Submit</span>}
@@ -330,11 +321,12 @@ export function Registration() {
             </span>
           )}
         </button>
+
         <Link to='/auth/login'>
           <button
             type='button'
             id='kt_login_signup_form_cancel_button'
-            className='btn btn-lg btn-light-primary w-100 mb-5'
+            className='btn btn-lg  bg-theme w-100 mb-1'
           >
             Cancel
           </button>

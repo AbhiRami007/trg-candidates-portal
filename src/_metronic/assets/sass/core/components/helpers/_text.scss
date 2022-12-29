@@ -1,68 +1,56 @@
 //
 // Text
 //
-
 // Text colors
-@each $name, $color in $theme-text-colors {
+@each $name,
+$color in $theme-text-colors {
     // Base color
     .text-#{$name} {
         color: var(--kt-text-#{$name}) !important;
     }
-
     // Inverse color
     @if (theme-inverse-color($name)) {
         .text-inverse-#{$name} {
             color: var(--kt-#{$name}-inverse) !important;
         }
     }
-
     @if (theme-light-color($name)) {
         // Light colors
         .text-light-#{$name} {
             color: var(--kt-#{$name}-light) !important;
         }
     }
-
     // Hover
     .text-hover-#{$name} {
         transition: $transition-link;
-
         i {
             transition: $transition-link;
         }
-
         &:hover {
             transition: $transition-link;
-            color: var(--kt-text-#{$name}) !important;
-
-            i {
-                transition: $transition-link;
-				color: var(--kt-text-#{$name}) !important;
-			}
-
-			.svg-icon {
-				color: var(--kt-text-#{$name}) !important;
-			}
-        }
-    }
-
-    // Active
-    .text-active-#{$name} {
-        transition: $transition-link;        
-
-        i {
-            transition: $transition-link;
-        }
-
-        &.active {
-            transition: $transition-link;
-            color: var(--kt-text-#{$name}) !important;
-            
+            color: #fed449 !important;
             i {
                 transition: $transition-link;
                 color: var(--kt-text-#{$name}) !important;
             }
-    
+            .svg-icon {
+                color: var(--kt-text-#{$name}) !important;
+            }
+        }
+    }
+    // Active
+    .text-active-#{$name} {
+        transition: $transition-link;
+        i {
+            transition: $transition-link;
+        }
+        &.active {
+            transition: $transition-link;
+            color: var(--kt-text-#{$name}) !important;
+            i {
+                transition: $transition-link;
+                color: var(--kt-text-#{$name}) !important;
+            }
             .svg-icon {
                 color: var(--kt-text-#{$name}) !important;
             }
@@ -84,6 +72,7 @@
 .cursor-default {
     cursor: default;
 }
+
 // Cursor move
 .cursor-move {
     cursor: move;
@@ -99,8 +88,7 @@ i {
 // Link transition
 a {
     transition: $transition-link;
-
     &:hover {
-        transition:$transition-link;
+        transition: $transition-link;
     }
 }

@@ -132,14 +132,7 @@ const AuthNav = () => {
                     </div>
                     {/* end::Menu wrapper */}
                   </div>
-                  {/* begin::Theme mode */}
-                  <div
-                    className={clsx('d-flex align-items-center', toolbarButtonMarginClass)}
-                    onClick={changeActive}
-                  >
-                    <ThemeModeSwitcher toggleBtnClass={toolbarButtonHeightClass} />
-                  </div>
-                  {/* end::Theme mode */}
+
                   {/* begin::User */}
                   <div
                     className={clsx('d-flex align-items-center', toolbarButtonMarginClass)}
