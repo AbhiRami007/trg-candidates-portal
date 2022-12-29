@@ -57,17 +57,17 @@ export function Login() {
 
   return (
     <form
-      className='form w-100'
+      className='form w-75  ml-65'
       onSubmit={formik.handleSubmit}
       noValidate
       id='kt_login_signin_form'
     >
       {/* begin::Heading */}
       <div className='text-center mb-10'>
-        <h1 className='text-dark mb-3'>Sign In</h1>
+        <h1 className='text-theme mb-3'>Sign In</h1>
         <div className='text-gray-400 fw-semibold fs-4'>
           New Here?{' '}
-          <Link to='/auth/registration' className='link-primary fw-bold'>
+          <Link to='/auth/registration' className='text-theme-yellow fw-bold'>
             Create an Account
           </Link>
         </div>
@@ -115,7 +115,7 @@ export function Login() {
             {/* begin::Link */}
             <Link
               to='/auth/forgot-password'
-              className='link-primary fs-6 fw-bold'
+              className='text-theme-yellow fs-6 fw-bold'
               style={{marginLeft: '5px'}}
             >
               Forgot Password ?
@@ -149,27 +149,37 @@ export function Login() {
 
       {/* begin::Action */}
       <div className='text-center'>
-        <button
-          type='submit'
-          id='kt_sign_in_submit'
-          className='btn btn-lg btn-primary w-100 mb-5'
-          disabled={formik.isSubmitting || !formik.isValid}
-        >
-          {!loading && <span className='indicator-label'>Continue</span>}
-          {loading && (
+        {!loading && (
+          <button
+            type='submit'
+            id='kt_sign_in_submit'
+            className='btn btn-lg  bg-theme w-100 mb-3'
+            disabled={formik.isSubmitting || !formik.isValid}
+          >
+            <span className='indicator-label'>Continue</span>
+          </button>
+        )}
+
+        {loading && (
+          <button
+            type='submit'
+            id='kt_sign_in_submit'
+            className='btn btn-lg bg-theme w-100 mb-3'
+            disabled={formik.isSubmitting || !formik.isValid}
+          >
             <span className='indicator-progress' style={{display: 'block'}}>
               Please wait...
               <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
             </span>
-          )}
-        </button>
+          </button>
+        )}
 
         {/* begin::Separator */}
-        <div className='text-center text-muted text-uppercase fw-bold mb-5'>or</div>
+        <div className='text-center text-muted text-uppercase fw-bold mb-3 '>or</div>
         {/* end::Separator */}
 
         {/* begin::Google link */}
-        <a href='#' className='btn btn-flex flex-center btn-light btn-lg w-100 mb-5'>
+        <a href='#' className='btn  btn-flex flex-center bg-theme btn-lg w-100 mb-1'>
           <img
             alt='Logo'
             src={toAbsoluteUrl('/media/svg/brand-logos/google-icon.svg')}
@@ -180,7 +190,7 @@ export function Login() {
         {/* end::Google link */}
 
         {/* begin::Google link */}
-        <a href='#' className='btn btn-flex flex-center btn-light btn-lg w-100 mb-5'>
+        <a href='#' className='btn btn-flex flex-center bg-theme  w-100 mb-1'>
           <img
             alt='Logo'
             src={toAbsoluteUrl('/media/svg/brand-logos/facebook-4.svg')}
@@ -191,7 +201,7 @@ export function Login() {
         {/* end::Google link */}
 
         {/* begin::Google link */}
-        <a href='#' className='btn btn-flex flex-center btn-light btn-lg w-100'>
+        <a href='#' className='btn  btn-flex flex-center bg-theme btn-lg w-100 mb-1'>
           <img
             alt='Logo'
             src={toAbsoluteUrl('/media/svg/brand-logos/apple-black.svg')}

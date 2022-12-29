@@ -1,0 +1,58 @@
+.body {
+    height: 100%;
+    margin: 0;
+}
+
+.flex {
+    display: flex;
+    height: 100%;
+}
+
+.one,
+.two {
+    width: 50%;
+    height: 100%;
+}
+
+.mt-50 {
+    margin-top: 50px;
+}
+
+.border-round {
+    border-radius: 0px;
+}
+
+.ml-65 {
+    margin-left: 65px;
+}
+
+.bg-color-theme {
+    background-color: #292562;
+}
+
+.bg-theme {
+    background-color: #292562;
+    color: white;
+}
+
+.text-theme {
+    color: #292562;
+}
+
+.text-theme-yellow {
+    color: #fed449;
+}
+
+.text-theme-yellow:hover {
+    color: #292562 !important;
+}
+
+.bg-theme:hover {
+    background-color: #fed449;
+    color: black;
+}
+
+.bg-wait-theme {
+    background-color: #fed449;
+    color: black;
+}

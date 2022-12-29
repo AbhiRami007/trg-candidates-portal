@@ -16,12 +16,15 @@ const AuthLayout = () => {
   return (
     <>
       <div
-      // className='d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed h-100px'
+        className='body'
+        // className='d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed h-100px'
       >
         {/* begin::Content */}
-        <div className='d-flex'>
-          {/* begin::Wrapper */}
-          <div className='w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto'>
+        {/* <div className='d-flex item' style={{border: '1px solid'}}>
+          <div
+            className='w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto mt-100'
+            style={{border: '1px solid'}}
+          >
             <Outlet />
             <div className='text-center mt-4'>
               <a href='#' className='text-center text-muted text-hover-primary px-2'>
@@ -30,15 +33,31 @@ const AuthLayout = () => {
             </div>
           </div>
           <div
-            className='w-lg-500px mx-auto'
+            className=''
             style={{
+              border: '1px solid',
               backgroundImage: `url(${toAbsoluteUrl('/media/illustrations/sketchy-1/14.png')})`,
             }}
           >
-            {' '}
+            demo{' '}
           </div>
 
-          {/* end::Wrapper */}
+        </div> */}
+
+        <div className='flex'>
+          <div className='one'>
+            <div className='w-lg-500px bg-body rounded shadow-sm p-10 p-lg-5 mx-auto mt-50'>
+              <Outlet />
+              <div className='text-center mt-4'>
+                <a href='#' className='text-center text-muted text-hover-primary px-2'>
+                  *Terms and Conditions
+                </a>
+              </div>
+            </div>
+          </div>
+          <div className='two bg-color-theme'>
+            {/* <img src={toAbsoluteUrl('/media/website/decoration-star.svg')} /> */}
+          </div>
         </div>
 
         {/* end::Content */}
