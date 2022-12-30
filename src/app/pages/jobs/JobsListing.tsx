@@ -7,169 +7,34 @@ export function JobsListing() {
   const [user]: any = useState(JSON.parse(userInfo))
   return (
     <>
-      <div
-        className='d-flex flex-wrap justify-content-center'
-        data-bs-toggle='modal'
-        data-bs-target='#kt_modal_1'
-      >
-        <div className='m-5 w-75'>
+      <div className='d-flex flex-wrap justify-content-center '>
+        <div className='w-50'>
           <div className='card card-stretch-100 shadow mb-2'>
-            <div className='card-header m-5'>
-              <h3 className='card-title'>What is Lorem Ipsum?</h3>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                unknown printer took a galley of type and scrambled it to make a type specimen book.
-                It has survived not only five centuries, but also the leap into electronic
-                typesetting, remaining essentially unchanged. It was popularised in the 1960s with
-                the release of Letraset sheets containing Lorem Ipsum passages, and more recently
-                with desktop publishing software like Aldus PageMaker including versions of Lorem
-                Ipsum.
-              </p>
+            <div className='card card-custom overlay overflow-hidden card-body'>
+              <div className='card-body p-0'>
+                <div className='overlay-wrapper'>
+                  <img
+                    src={toAbsoluteUrl('/media/stock/600x400/img-1.jpg')}
+                    alt=''
+                    className='w-100 rounded'
+                  />
+                  <div className='d-flex image-post'>
+                    <h3>The Recruits Group</h3>
+                    <p>Graphical Designer</p>
+                  </div>
+                </div>
+                <div className='overlay-layer bg-dark bg-opacity-10'>
+                  <a
+                    href='#'
+                    className='btn bg-theme'
+                    data-bs-toggle='modal'
+                    data-bs-target='#kt_modal_1'
+                  >
+                    Click to see job description
+                  </a>
+                </div>
+              </div>
             </div>
-            <img
-              src={toAbsoluteUrl('/media/books/1.png')}
-              className='card-body m-5 h-500px'
-              alt='img'
-            />
-          </div>
-        </div>
-
-        <div className='m-5 w-75'>
-          <div className='card card-stretch-100 shadow mb-2'>
-            <div className='card-header m-5'>
-              <h3 className='card-title'>What is Lorem Ipsum?</h3>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                unknown printer took a galley of type and scrambled it to make a type specimen book.
-                It has survived not only five centuries, but also the leap into electronic
-                typesetting, remaining essentially unchanged. It was popularised in the 1960s with
-                the release of Letraset sheets containing Lorem Ipsum passages, and more recently
-                with desktop publishing software like Aldus PageMaker including versions of Lorem
-                Ipsum.
-              </p>
-            </div>
-            <img
-              src={toAbsoluteUrl('/media/books/1.png')}
-              className='card-body m-5 h-500px'
-              alt='img'
-            />
-          </div>
-        </div>
-
-        <div className='m-5 w-75'>
-          <div className='card card-stretch-100 shadow mb-2'>
-            <div className='card-header m-5'>
-              <h3 className='card-title'>What is Lorem Ipsum?</h3>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                unknown printer took a galley of type and scrambled it to make a type specimen book.
-                It has survived not only five centuries, but also the leap into electronic
-                typesetting, remaining essentially unchanged. It was popularised in the 1960s with
-                the release of Letraset sheets containing Lorem Ipsum passages, and more recently
-                with desktop publishing software like Aldus PageMaker including versions of Lorem
-                Ipsum.
-              </p>
-            </div>
-            <img
-              src={toAbsoluteUrl('/media/books/1.png')}
-              className='card-body m-5 h-500px'
-              alt='img'
-            />
-          </div>
-        </div>
-
-        <div className='m-5 w-75'>
-          <div className='card card-stretch-100 shadow mb-2'>
-            <div className='card-header m-5'>
-              <h3 className='card-title'>What is Lorem Ipsum?</h3>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                unknown printer took a galley of type and scrambled it to make a type specimen book.
-                It has survived not only five centuries, but also the leap into electronic
-                typesetting, remaining essentially unchanged. It was popularised in the 1960s with
-                the release of Letraset sheets containing Lorem Ipsum passages, and more recently
-                with desktop publishing software like Aldus PageMaker including versions of Lorem
-                Ipsum.
-              </p>
-            </div>
-            <img
-              src={toAbsoluteUrl('/media/books/1.png')}
-              className='card-body m-5 h-500px'
-              alt='img'
-            />
-          </div>
-        </div>
-
-        <div className='m-5 w-75'>
-          <div className='card card-stretch-100 shadow mb-2'>
-            <div className='card-header m-5'>
-              <h3 className='card-title'>What is Lorem Ipsum?</h3>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                unknown printer took a galley of type and scrambled it to make a type specimen book.
-                It has survived not only five centuries, but also the leap into electronic
-                typesetting, remaining essentially unchanged. It was popularised in the 1960s with
-                the release of Letraset sheets containing Lorem Ipsum passages, and more recently
-                with desktop publishing software like Aldus PageMaker including versions of Lorem
-                Ipsum.
-              </p>
-            </div>
-            <img
-              src={toAbsoluteUrl('/media/books/1.png')}
-              className='card-body m-5 h-500px'
-              alt='img'
-            />
-          </div>
-        </div>
-
-        <div className='m-5 w-75'>
-          <div className='card card-stretch-100 shadow mb-2'>
-            <div className='card-header m-5'>
-              <h3 className='card-title'>What is Lorem Ipsum?</h3>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                unknown printer took a galley of type and scrambled it to make a type specimen book.
-                It has survived not only five centuries, but also the leap into electronic
-                typesetting, remaining essentially unchanged. It was popularised in the 1960s with
-                the release of Letraset sheets containing Lorem Ipsum passages, and more recently
-                with desktop publishing software like Aldus PageMaker including versions of Lorem
-                Ipsum.
-              </p>
-            </div>
-            <img
-              src={toAbsoluteUrl('/media/books/1.png')}
-              className='card-body m-5 h-500px'
-              alt='img'
-            />
-          </div>
-        </div>
-
-        <div className='m-5 w-75'>
-          <div className='card card-stretch-100 shadow mb-2'>
-            <div className='card-header m-5'>
-              <h3 className='card-title'>What is Lorem Ipsum?</h3>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                unknown printer took a galley of type and scrambled it to make a type specimen book.
-                It has survived not only five centuries, but also the leap into electronic
-                typesetting, remaining essentially unchanged. It was popularised in the 1960s with
-                the release of Letraset sheets containing Lorem Ipsum passages, and more recently
-                with desktop publishing software like Aldus PageMaker including versions of Lorem
-                Ipsum.
-              </p>
-            </div>
-            <img
-              src={toAbsoluteUrl('/media/books/1.png')}
-              className='card-body m-5 h-500px'
-              alt='img'
-            />
           </div>
         </div>
       </div>
@@ -212,7 +77,10 @@ export function JobsListing() {
                 Close
               </button>
               <button type='button' className='btn btn-primary'>
-                Save changes
+                Apply
+              </button>
+              <button type='button' className='btn btn-primary'>
+                Save
               </button>
             </div>
           </div>

@@ -39,8 +39,21 @@
     color: white;
 }
 
+.bg-theme-color {
+    background-color: #292562;
+    color: white;
+}
+
 .text-theme {
     color: #292562;
+}
+
+.text-theme-btn {
+    color: #292562;
+}
+
+.text-theme-btn:hover {
+    color: #fed449;
 }
 
 .text-theme-yellow {
@@ -61,7 +74,14 @@
     color: black;
 }
 
-button[disabled] {
-    background-color: #363356;
-    color: white;
+.image-post {
+    position: relative;
+    top: -320px;
+    border-radius: 5px;
+    background-color: #292562 !important;
+}
+
+.fade-high {
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
 }
