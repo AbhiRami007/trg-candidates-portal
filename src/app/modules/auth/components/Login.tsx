@@ -4,11 +4,12 @@ import * as Yup from 'yup'
 import clsx from 'clsx'
 import {Link} from 'react-router-dom'
 import {useFormik} from 'formik'
-import {getUserByToken, login} from '../core/_requests'
+import {getUserByToken, getUserProfile, login} from '../core/_requests'
 import {toAbsoluteUrl} from '../../../../_metronic/helpers'
 import {useAuth} from '../core/Auth'
-import {ToastContainer, toast} from 'react-toastify'
+// import {ToastContainer, toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import {getUserById} from '../../apps/user-management/users-list/core/_requests'
 
 const loginSchema = Yup.object().shape({
   email: Yup.string()
@@ -45,8 +46,15 @@ export function Login() {
         const {data: auth} = await login(values.email, values.password)
         saveAuth(auth)
         const {data: user} = await getUserByToken(auth.api_token)
-        localStorage.setItem('userData', JSON.stringify(user))
-        setCurrentUser(user)
+        if (user) {
+          debugger
+          if (user.avatar) {
+            const {data: profile} = await getUserProfile(values.email, user.avatar)
+            console.log(profile)
+          }
+          localStorage.setItem('userData', JSON.stringify(auth))
+          setCurrentUser(user)
+        }
       } catch (error) {
         console.error(error)
         saveAuth(undefined)
@@ -56,17 +64,17 @@ export function Login() {
       }
     },
   })
-  const notifySuccess = (message: string) => {
-    toast.success(message, {
-      position: toast.POSITION.TOP_RIGHT,
-    })
-  }
+  // const notifySuccess = (message: string) => {
+  //   toast.success(message, {
+  //     position: toast.POSITION.TOP_RIGHT,
+  //   })
+  // }
 
-  const notifyError = (message: string) => {
-    toast.error(message, {
-      position: toast.POSITION.TOP_RIGHT,
-    })
-  }
+  // const notifyError = (message: string) => {
+  //   toast.error(message, {
+  //     position: toast.POSITION.TOP_RIGHT,
+  //   })
+  // }
 
   return (
     <form
@@ -87,9 +95,15 @@ export function Login() {
       </div>
       {/* begin::Heading */}
 
-      {formik.status && formik.errors && (
+      {/* {formik.status && formik.errors && (
         <div>
           <ToastContainer />
+        </div>
+      )} */}
+
+      {formik.status && (
+        <div className='mb-lg-15 alert alert-danger'>
+          <div className='alert-text font-weight-bold'>{formik.status}</div>
         </div>
       )}
 
@@ -166,11 +180,11 @@ export function Login() {
       {/* begin::Action */}
       <div
         className='text-center'
-        onClick={() => {
-          formik.status && formik.errors
-            ? notifyError(formik.status)
-            : formik.status && !formik.errors && notifySuccess(formik.status)
-        }}
+        // onClick={() => {
+        //   formik.status && formik.errors
+        //     ? notifyError(formik.status)
+        //     : formik.status && !formik.errors && notifySuccess(formik.status)
+        // }}
       >
         <button
           type='submit'

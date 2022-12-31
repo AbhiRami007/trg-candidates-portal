@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {toAbsoluteUrl} from '../../../../../../_metronic/helpers'
 import {
   IProfileDetails,
@@ -6,6 +6,14 @@ import {
 } from '../../../../profile/components/settings/SettingsModel'
 import * as Yup from 'yup'
 import {useFormik} from 'formik'
+import {useNavigate} from 'react-router-dom'
+import {AUTH_LOCAL_STORAGE_KEY} from '../../../../auth/core/AuthHelpers'
+import {
+  getUserDataById,
+  getUserImage,
+  updateAvatar,
+  updateUserImage,
+} from '../../../../auth/core/_requests'
 
 const profileDetailsSchema = Yup.object().shape({
   fName: Yup.string().required('First name is required'),
@@ -22,9 +30,36 @@ const profileDetailsSchema = Yup.object().shape({
 
 const ProfileDetails: React.FC = () => {
   const [data, setData] = useState<IProfileDetails>(initialValues)
+  const navigate = useNavigate()
+  const [user, setUser]: any = useState({})
+
+  const [avatar, setAvatar] = useState('')
+
+  useEffect(() => {
+    const userData = localStorage.getItem(AUTH_LOCAL_STORAGE_KEY)
+    if (userData) {
+      setUser(JSON.parse(userData).userId)
+      setAvatar(JSON.parse(userData).userId.avatar)
+    } else {
+      navigate('/auth/login')
+    }
+  }, [])
   const updateData = (fieldsToUpdate: Partial<IProfileDetails>): void => {
     const updatedData = Object.assign(data, fieldsToUpdate)
     setData(updatedData)
+  }
+  const updateImage = async (e: any) => {
+    const updateProfile: any = await updateUserImage(user.email, e.target.files[0])
+    if (updateProfile.data?.data) {
+      let userAvatar: any = await getUserImage(updateProfile.data.data.imagePath)
+      setAvatar(userAvatar.data.data)
+      await updateAvatar(user.id, userAvatar.data.data)
+      const userInfo = await getUserDataById(user.id)
+      localStorage.removeItem('userData')
+      localStorage.setItem('userData', JSON.stringify(userInfo))
+    }
+    const userInfo = localStorage.getItem('userData')
+    setUser(userInfo)
   }
 
   const [loading, setLoading] = useState(false)
@@ -32,6 +67,7 @@ const ProfileDetails: React.FC = () => {
     initialValues,
     validationSchema: profileDetailsSchema,
     onSubmit: (values) => {
+      debugger
       setLoading(true)
       setTimeout(() => {
         const updatedData = Object.assign(data, values)
@@ -79,17 +115,11 @@ const ProfileDetails: React.FC = () => {
               <label className='col-lg-4 col-form-label fw-semobold fs-6'>Avatar</label>
 
               <div className='col-lg-8'>
-                <div
-                  className='image-input image-input-outline'
-                  data-kt-image-input='true'
-                  style={{backgroundImage: `url("${toAbsoluteUrl('/media/avatars/blank.png')}")`}}
-                >
-                  <div
+                <div className='image-input image-input-outline' data-kt-image-input='true'>
+                  <img
                     className='image-input-wrapper w-125px h-125px'
-                    style={{
-                      backgroundImage: `url("${toAbsoluteUrl('/media/avatars/300-23.jpg')}")`,
-                    }}
-                  ></div>
+                    src={user.avatar ? avatar : toAbsoluteUrl('/media/avatars/blank.png')}
+                  />
 
                   <label
                     className='btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow'
@@ -99,7 +129,12 @@ const ProfileDetails: React.FC = () => {
                   >
                     <i className='bi bi-pencil-fill fs-7'></i>
 
-                    <input type='file' name='avatar' accept='.png, .jpg, .jpeg' />
+                    <input
+                      type='file'
+                      name='avatar'
+                      accept='.png, .jpg, .jpeg'
+                      onChange={(e) => updateImage(e)}
+                    />
                     <input type='hidden' name='avatar_remove' />
                   </label>
 

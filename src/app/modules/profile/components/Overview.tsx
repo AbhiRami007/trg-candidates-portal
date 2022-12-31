@@ -1,9 +1,20 @@
-import React, {useState} from 'react'
-import {Link} from 'react-router-dom'
+import React, {useEffect, useState} from 'react'
+import {Link, useNavigate} from 'react-router-dom'
+import {AUTH_LOCAL_STORAGE_KEY} from '../../auth'
+import {getUserDataById} from '../../auth/core/_requests'
 
-export function Overview() {
-  const userInfo: any = localStorage.getItem('userData')
-  const [user]: any = useState(JSON.parse(userInfo))
+export const Overview = () => {
+  const navigate = useNavigate()
+  const [user, setUser]: any = useState({})
+  useEffect(() => {
+    const userData = localStorage.getItem(AUTH_LOCAL_STORAGE_KEY)
+    if (userData) {
+      setUser(JSON.parse(userData).userId)
+    } else {
+      navigate('/auth/login')
+    }
+  }, [])
+
   return (
     <>
       <div className='card mb-5 mb-xl-10' id='kt_profile_details_view'>
@@ -33,16 +44,6 @@ export function Overview() {
 
             <div className='col-lg-8 fv-row'>
               <span className='fw-bold fs-6'>{user.position ? user.position : 'Not Updated'}</span>
-            </div>
-          </div>
-
-          <div className='row mb-7'>
-            <label className='col-lg-4 fw-bold text-muted'>Address</label>
-
-            <div className='col-lg-8'>
-              <span className='fw-bolder fs-6 text-dark'>
-                {user.address ? user.address : 'Not Updated'}
-              </span>
             </div>
           </div>
           <div className='row mb-7'>
@@ -136,26 +137,6 @@ export function Overview() {
           </div>
         </div>
       </div>
-
-      {/* <div className='row gy-10 gx-xl-10'>
-        <div className='col-xl-6'>
-          <ChartsWidget1 className='card-xxl-stretch mb-5 mb-xl-10' />
-        </div>
-
-        <div className='col-xl-6'>
-          <TablesWidget1 className='card-xxl-stretch mb-5 mb-xl-10' />
-        </div>
-      </div>
-
-      <div className='row gy-10 gx-xl-10'>
-        <div className='col-xl-6'>
-          <ListsWidget5 className='card-xxl-stretch mb-5 mb-xl-10' />
-        </div>
-
-        <div className='col-xl-6'>
-          <TablesWidget5 className='card-xxl-stretch mb-5 mb-xl-10' />
-        </div>
-      </div> */}
     </>
   )
 }

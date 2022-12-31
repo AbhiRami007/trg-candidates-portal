@@ -16,7 +16,7 @@ const UserSelectionCell: FC<Props> = ({id}) => {
         type='checkbox'
         data-kt-check={isSelected}
         data-kt-check-target='#kt_table_users .form-check-input'
-        checked={isSelected}
+        // checked={isSelected}
         onChange={() => onSelect(id)}
       />
     </div>

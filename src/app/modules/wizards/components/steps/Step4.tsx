@@ -156,7 +156,7 @@ const Step4: FC = () => {
         </div>
 
         <label className='form-check form-switch form-check-custom form-check-solid'>
-          <Field className='form-check-input' type='checkbox' value='1' checked={true} />
+          <Field className='form-check-input' type='checkbox' value='1' defaultChecked={true} />
           <span className='form-check-label fw-semibold text-gray-400'>Save Card</span>
         </label>
       </div>

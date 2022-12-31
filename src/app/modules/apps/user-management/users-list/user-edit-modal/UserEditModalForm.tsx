@@ -228,7 +228,7 @@ const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
                   type='radio'
                   value='Administrator'
                   id='kt_modal_update_role_option_0'
-                  checked={formik.values.role === 'Administrator'}
+                  defaultChecked={formik.values.role === 'Administrator'}
                   disabled={formik.isSubmitting || isUserLoading}
                 />
 
@@ -258,7 +258,7 @@ const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
                   type='radio'
                   value='Developer'
                   id='kt_modal_update_role_option_1'
-                  checked={formik.values.role === 'Developer'}
+                  defaultChecked={formik.values.role === 'Developer'}
                   disabled={formik.isSubmitting || isUserLoading}
                 />
                 {/* end::Input */}
@@ -287,7 +287,7 @@ const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
                   type='radio'
                   value='Analyst'
                   id='kt_modal_update_role_option_2'
-                  checked={formik.values.role === 'Analyst'}
+                  defaultChecked={formik.values.role === 'Analyst'}
                   disabled={formik.isSubmitting || isUserLoading}
                 />
 
@@ -318,7 +318,7 @@ const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
                   type='radio'
                   value='Support'
                   id='kt_modal_update_role_option_3'
-                  checked={formik.values.role === 'Support'}
+                  defaultChecked={formik.values.role === 'Support'}
                   disabled={formik.isSubmitting || isUserLoading}
                 />
                 {/* end::Input */}
@@ -347,7 +347,7 @@ const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
                   type='radio'
                   id='kt_modal_update_role_option_4'
                   value='Trial'
-                  checked={formik.values.role === 'Trial'}
+                  defaultChecked={formik.values.role === 'Trial'}
                   disabled={formik.isSubmitting || isUserLoading}
                 />
                 {/* end::Input */}

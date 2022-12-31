@@ -1,10 +1,10 @@
 import {Navigate, Routes, Route, Outlet} from 'react-router-dom'
 import {PageLink, PageTitle} from '../../../_metronic/layout/core'
-import {Overview} from './components/Overview'
 import {Projects} from './components/Projects'
 import {Documents} from './components/Documents'
 import {ProfileHeader} from './ProfileHeader'
 import {Settings} from './components/settings/Settings'
+import {Overview} from './components/Overview'
 
 const profileBreadCrumbs: Array<PageLink> = [
   {
@@ -49,7 +49,6 @@ const ProfilePage = () => (
           </>
         }
       />
-
 
       <Route
         path='documents'

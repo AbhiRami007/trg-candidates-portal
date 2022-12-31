@@ -44,6 +44,14 @@ export interface UserSocialNetworksModel {
 }
 
 export interface UserModel {
+  position: any
+  avatar:string
+  phoneVerified: string | undefined
+  company: any
+  company_url: any
+  country: any
+  time_zone: any
+  currency: any
   id: number
   username: string
   password: string | undefined

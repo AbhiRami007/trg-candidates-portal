@@ -73,7 +73,7 @@ const Dropdown3: FC = () => {
                   className='form-check-input w-30px h-20px'
                   type='checkbox'
                   value='1'
-                  checked
+                  defaultChecked={true}
                   name='notifications'
                 />
 

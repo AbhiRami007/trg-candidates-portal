@@ -7,6 +7,12 @@ export const GET_USER_BY_ACCESSTOKEN_URL = `${API_URL}/verify_token`
 export const LOGIN_URL = `${API_URL}/login`
 export const REGISTER_URL = `${API_URL}/register`
 export const REQUEST_PASSWORD_URL = `${API_URL}/forgot_password`
+export const VERIFY_OTP = `${API_URL}/verify-otp`
+export const RESEND_OTP = `${API_URL}/resend-otp`
+export const GET_USER_BY_ID = `${API_URL}/id`
+export const GET_USER_IMAGE = `${API_URL}/profile`
+export const UPDATE_USER_IMAGE= `${API_URL}/profile`
+export const UPDATE_IMAGE_IN_DB= `${API_URL}/update`
 
 // Server should return AuthModel
 export function login(email: string, password: string) {
@@ -43,5 +49,43 @@ export function requestPassword(email: string) {
 export function getUserByToken(token: string) {
   return axios.post<UserModel>(GET_USER_BY_ACCESSTOKEN_URL, {
     api_token: token,
+  })
+}
+
+export function verifyEmailOtp(otp: number, email: string) {
+  return axios.put<UserModel>(VERIFY_OTP, {
+    otp: otp,
+    email:email
+  })
+}
+
+export function resendOtp(email: string) {
+  return axios.put<UserModel>(RESEND_OTP, {
+    email:email
+  })
+}
+
+export function getUserDataById(id: string) {
+  return axios.get<UserModel>(GET_USER_BY_ID+'/'+id)
+}
+
+export function getUserProfile(user: string, image:string ) {
+  debugger;
+  return axios.get<UserModel>(GET_USER_IMAGE+'/'+user+"/"+image)
+}
+
+export function updateUserImage(user: string, image: File ) {
+  const data = new FormData()
+  data.append('file', image)
+  return axios.post<UserModel>(UPDATE_USER_IMAGE+'/'+user,data)
+}
+
+export function getUserImage(path: string) {
+  return axios.get<UserModel>(UPDATE_USER_IMAGE+'/'+path)
+}
+
+export function updateAvatar(id: number, avatar: string) {
+  return axios.put<UserModel>(UPDATE_IMAGE_IN_DB+'/'+id,{
+    avatar: avatar
   })
 }

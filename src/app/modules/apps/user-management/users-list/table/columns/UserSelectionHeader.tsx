@@ -17,7 +17,7 @@ const UserSelectionHeader: FC<Props> = ({tableProps}) => {
           type='checkbox'
           data-kt-check={isAllSelected}
           data-kt-check-target='#kt_table_users .form-check-input'
-          checked={isAllSelected}
+          // checked={isAllSelected}
           onChange={onSelectAll}
         />
       </div>

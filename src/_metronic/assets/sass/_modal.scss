@@ -1,0 +1,86 @@
+.modalContainer {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba($color: #000000, $alpha: 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}
+
+.modal-border {
+    width: 30vw;
+    height: auto;
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+    &-header {
+        position: relative;
+        border-bottom: 1px solid #dddddd;
+        &-title {
+            text-align: center;
+        }
+        .close {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: transparent;
+            &:hover {
+                img {
+                    transform: scale(1.1);
+                }
+            }
+        }
+    }
+    &-content {
+        border-bottom: 1px solid #dddddd;
+        padding: 2rem 0;
+    }
+    &-footer {
+        padding: 2rem 0;
+        padding-bottom: 0;
+        button {
+            float: right;
+            padding: 0.5rem;
+            border-radius: 8px;
+        }
+        &-close {
+            background-color: transparent;
+            font-weight: 600;
+            &:hover {
+                color: rgba(54, 67, 72, 0.8);
+            }
+        }
+        &-submit {
+            margin-right: 1rem;
+            background-color: #364348;
+            color: #fff;
+            &:hover {
+                background-color: rgba(54, 67, 72, 0.8);
+            }
+        }
+    }
+}
+
+// OTP styles
+.otp-group {
+    display: flex;
+    width: 100%;
+    max-width: 360px;
+    column-gap: 10px;
+}
+
+.otp-input {
+    width: 100%;
+    height: 60px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    line-height: 1;
+}

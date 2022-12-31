@@ -58,7 +58,7 @@ const ConnectedAccounts: React.FC = () => {
             </div>
           </div>
 
-          <div className='py-2'>
+          {/* <div className='py-2'>
             <div className='d-flex flex-stack'>
               <div className='d-flex'>
                 <img
@@ -164,7 +164,7 @@ const ConnectedAccounts: React.FC = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className='card-footer d-flex justify-content-end py-6 px-9'>
