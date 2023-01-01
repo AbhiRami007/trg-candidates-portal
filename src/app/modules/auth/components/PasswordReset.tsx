@@ -1,37 +1,44 @@
 import {useState} from 'react'
 import * as Yup from 'yup'
 import clsx from 'clsx'
-import {Link, Navigate, useNavigate} from 'react-router-dom'
+import {Link, Navigate, useParams} from 'react-router-dom'
 import {useFormik} from 'formik'
-import {resetPassword} from '../core/_requests'
+import {requestPassword, resetPassword, updateAvatar, updateUser} from '../core/_requests'
 
 import {ToastContainer, toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import {AUTH_LOCAL_STORAGE_KEY} from '../core/AuthHelpers'
 
 const initialValues = {
-  email: ' ',
+  password: '',
+  changepassword: '',
 }
 
 const forgotPasswordSchema = Yup.object().shape({
-  email: Yup.string()
-    .email('Wrong email format')
-    .min(3, 'Minimum 3 symbols')
+  password: Yup.string()
+    .min(3, 'Minimum 8 symbols')
     .max(50, 'Maximum 50 symbols')
-    .required('Email is required'),
+    .required('Password is required'),
+  changepassword: Yup.string()
+    .required('Password confirmation is required')
+    .when('password', {
+      is: (val: string) => (val && val.length > 0 ? true : false),
+      then: Yup.string().oneOf([Yup.ref('password')], "Password and Confirm Password didn't match"),
+    }),
 })
 
-export function ForgotPassword() {
+export function PasswordReset() {
   const [afterDelay, setDelay] = useState(false)
   const [loading, setLoading] = useState(false)
-  const navigate = useNavigate()
   const [hasErrors, setHasErrors] = useState<boolean | undefined>(undefined)
+  const {id}: any = useParams()
   const formik = useFormik({
     initialValues,
     validationSchema: forgotPasswordSchema,
     onSubmit: async (values, {setStatus, setSubmitting}) => {
       setLoading(true)
       try {
-        const {data: auth} = await resetPassword(values.email)
+        const {data: auth} = await updateUser(id, {password: values.password})
         if (auth) {
           setHasErrors(false)
           setTimeout(() => {
@@ -40,7 +47,6 @@ export function ForgotPassword() {
         }
       } catch (error) {
         console.error(error)
-        setHasErrors(true)
         setStatus(error.response.data.message)
         setSubmitting(false)
         setLoading(false)
@@ -95,27 +101,74 @@ export function ForgotPassword() {
             {afterDelay && <Navigate to='/auth/login' />}
           </>
         )}
-        {/* begin::Form group */}
-        <div className='fv-row mb-10'>
-          <label className='form-label fs-6 fw-bold text-dark'>Email</label>
+        {/* begin::Form group Password */}
+        <div className='mb-2 fv-row' data-kt-password-meter='true'>
+          <div className='mb-1'>
+            <label className='form-label fw-bold text-dark fs-6'>Password</label>
+            <div className='position-relative mb-3'>
+              <input
+                type='password'
+                placeholder='Password'
+                autoComplete='off'
+                {...formik.getFieldProps('password')}
+                className={clsx(
+                  'form-control form-control-lg form-control-solid',
+                  {
+                    'is-invalid': formik.touched.password && formik.errors.password,
+                  },
+                  {
+                    'is-valid': formik.touched.password && !formik.errors.password,
+                  }
+                )}
+              />
+              {formik.touched.password && formik.errors.password && (
+                <div className='fv-plugins-message-container'>
+                  <div className='fv-help-block'>
+                    <span role='alert'>{formik.errors.password}</span>
+                  </div>
+                </div>
+              )}
+            </div>
+            {/* begin::Meter */}
+            <div
+              className='d-flex align-items-center mb-3'
+              data-kt-password-meter-control='highlight'
+            >
+              <div className='flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2'></div>
+              <div className='flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2'></div>
+              <div className='flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2'></div>
+              <div className='flex-grow-1 bg-secondary bg-active-success rounded h-5px'></div>
+            </div>
+            {/* end::Meter */}
+          </div>
+          <div className='text-muted'>
+            Use 8 or more characters with a mix of letters, numbers & symbols.
+          </div>
+        </div>
+        {/* end::Form group */}
+
+        {/* begin::Form group Confirm password */}
+        <div className='fv-row mb-5'>
+          <label className='form-label fw-bold text-dark fs-6'>Confirm Password</label>
           <input
-            placeholder='Email'
-            {...formik.getFieldProps('email')}
+            type='password'
+            placeholder='Password confirmation'
+            autoComplete='off'
+            {...formik.getFieldProps('changepassword')}
             className={clsx(
               'form-control form-control-lg form-control-solid',
-              {'is-invalid': formik.touched.email && formik.errors.email},
               {
-                'is-valid': formik.touched.email && !formik.errors.email,
+                'is-invalid': formik.touched.changepassword && formik.errors.changepassword,
+              },
+              {
+                'is-valid': formik.touched.changepassword && !formik.errors.changepassword,
               }
             )}
-            type='email'
-            name='email'
-            autoComplete='off'
           />
-          {formik.touched.email && formik.errors.email && (
+          {formik.touched.changepassword && formik.errors.changepassword && (
             <div className='fv-plugins-message-container'>
               <div className='fv-help-block'>
-                <span role='alert'>{formik.errors.email}</span>
+                <span role='alert'>{formik.errors.changepassword}</span>
               </div>
             </div>
           )}

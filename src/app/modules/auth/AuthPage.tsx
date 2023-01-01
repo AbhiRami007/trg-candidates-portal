@@ -5,6 +5,7 @@ import {Registration} from './components/Registration'
 import {ForgotPassword} from './components/ForgotPassword'
 import {Login} from './components/Login'
 import {AuthNav} from './AuthNav'
+import {PasswordReset} from './components/PasswordReset'
 
 const AuthLayout = () => {
   useEffect(() => {
@@ -72,6 +73,7 @@ const AuthPage = () => (
       <Route path='login' element={<Login />} />
       <Route path='registration' element={<Registration />} />
       <Route path='forgot-password' element={<ForgotPassword />} />
+      <Route path='password-reset/:id' element={<PasswordReset />} />
       <Route index element={<Login />} />
     </Route>
   </Routes>

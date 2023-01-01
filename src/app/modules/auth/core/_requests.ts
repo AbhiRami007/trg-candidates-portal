@@ -13,6 +13,9 @@ export const GET_USER_BY_ID = `${API_URL}/id`
 export const GET_USER_IMAGE = `${API_URL}/profile`
 export const UPDATE_USER_IMAGE= `${API_URL}/profile`
 export const UPDATE_IMAGE_IN_DB= `${API_URL}/update`
+export const UPDATE_USER_DATA= `${API_URL}/update`
+export const FORGOT_PASSWORD= `${API_URL}/forgot-password`
+export const CHECK_PASSWORD= `${API_URL}/check-password`
 
 // Server should return AuthModel
 export function login(email: string, password: string) {
@@ -59,9 +62,10 @@ export function verifyEmailOtp(otp: number, email: string) {
   })
 }
 
-export function resendOtp(email: string) {
+export function resendOtp(email: string, newemail:string) {
   return axios.put<UserModel>(RESEND_OTP, {
-    email:email
+    email:email,
+    newemail:newemail
   })
 }
 
@@ -86,5 +90,25 @@ export function getUserImage(path: string) {
 export function updateAvatar(id: number, avatar: string) {
   return axios.put<UserModel>(UPDATE_IMAGE_IN_DB+'/'+id,{
     avatar: avatar
+  })
+}
+
+export function resetPassword(email: string) {
+  return axios.post(FORGOT_PASSWORD,{
+    email: email
+  })
+}
+export function updateUser(id: any, body: object) {
+  return axios.put<UserModel>(UPDATE_USER_DATA+"/"+id,
+  {
+    ...body
+  })
+}
+
+export function checkPassword(email: string, password: string) {
+  return axios.post<UserModel>(CHECK_PASSWORD,
+  {
+    email:email,
+    password: password
   })
 }

@@ -11,6 +11,20 @@ export interface IProfileDetails {
   currency: string;
 }
 
+export interface IEducation{
+  college:string,
+  city:string,
+  state:string,
+  country:string,
+  grade:string,
+  course:string,
+  description:string
+}
+
+export interface IAbout{
+  about: string
+}
+
 export interface IUpdateEmail {
   newEmail: string
   confirmPassword: string
@@ -80,7 +94,7 @@ export const profileDetailsInitValues: IProfileDetails = {
 }
 
 export const updateEmail: IUpdateEmail = {
-  newEmail: 'support@keenthemes.com',
+  newEmail: '',
   confirmPassword: '',
 }
 

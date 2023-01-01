@@ -1,14 +1,26 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {KTSVG} from '../../../../../../_metronic/helpers'
 import * as Yup from 'yup'
-import {useFormik} from 'formik'
+import {FieldInputProps, useFormik} from 'formik'
 import {
   IUpdatePassword,
   IUpdateEmail,
   updatePassword,
   updateEmail,
 } from '../../../../profile/components/settings/SettingsModel'
+import {getUserById} from '../../../../apps/user-management/users-list/core/_requests'
+import {AUTH_LOCAL_STORAGE_KEY} from '../../../../auth'
+import {
+  checkPassword,
+  getUserDataById,
+  resendOtp,
+  updateUser,
+  verifyEmailOtp,
+} from '../../../../auth/core/_requests'
+import Modal from '../../../../modals/Modal'
+import {useNavigate} from 'react-router-dom'
+import OtpInput from '../../../../modals/OtpInput'
 
 const emailFormValidationSchema = Yup.object().shape({
   newEmail: Yup.string()
@@ -39,31 +51,92 @@ const passwordFormValidationSchema = Yup.object().shape({
 })
 
 const SignInMethod: React.FC = () => {
+  const navigate = useNavigate()
   const [emailUpdateData, setEmailUpdateData] = useState<IUpdateEmail>(updateEmail)
   const [passwordUpdateData, setPasswordUpdateData] = useState<IUpdatePassword>(updatePassword)
 
   const [showEmailForm, setShowEmailForm] = useState<boolean>(false)
   const [showPasswordForm, setPasswordForm] = useState<boolean>(false)
 
+  const [showSuccess, setShowSuccess] = useState(false)
+  const [showBtn, setShowBtn] = useState(false)
+  const [newEmail, setNewEmail] = useState('')
+  // const [showFailure, setShowFailure] = useState(false)
+  const [isValid, setIsValid] = useState(true)
+  const [invalidMsg, setInvalidMsg] = useState('')
+  const [otp, setOtp] = useState('')
+  const [show1, setShow1] = useState(false)
   const [loading1, setLoading1] = useState(false)
+  const [user, setUser]: any = useState()
+  const userInfo: any = localStorage.getItem(AUTH_LOCAL_STORAGE_KEY)
+  const id = JSON.parse(userInfo).userId
+  useEffect(() => {
+    debugger
+    const getUser = async () => {
+      const userInfo: any = await getUserDataById(id)
+      if (userInfo) {
+        setUser(userInfo.data.data)
+      }
+    }
+    getUser()
+  }, [])
+
+  const toggle = () => {
+    setShow1(!show1)
+  }
+  const otpData = (value: string) => setOtp(value)
+  const submitOtp = async () => {
+    const verifyOtp = await verifyEmailOtp(Number(otp), user.email)
+    if (verifyOtp.data) {
+      const userInfo = await updateUser(user.id, {email: newEmail})
+      setShow1(false)
+      setShowSuccess(true)
+    } else {
+      setIsValid(false)
+      setInvalidMsg(verifyOtp.data)
+      setShowBtn(true)
+    }
+  }
+
+  const ResendOtp = async () => {
+    await resendOtp(user.email, '')
+    setShowBtn(false)
+  }
+
+  const gotoAuth = () => {
+    setShowSuccess(false)
+    setLoading1(false)
+    setShowEmailForm(false)
+    setOtp('')
+
+    navigate('/pages/profile/settings')
+  }
 
   const formik1 = useFormik<IUpdateEmail>({
     initialValues: {
       ...emailUpdateData,
     },
     validationSchema: emailFormValidationSchema,
-    onSubmit: (values) => {
-      setLoading1(true)
-      setTimeout((values) => {
-        setEmailUpdateData(values)
+    onSubmit: async (values, {setStatus, setSubmitting}) => {
+      try {
+        setLoading1(true)
+
+        const password = await checkPassword(user.email, values.confirmPassword)
+        if (password) {
+          await resendOtp(user.email, values.newEmail)
+          setNewEmail(values.newEmail)
+          setShow1(true)
+        }
+      } catch (error) {
+        console.error(error)
+        setStatus(error.response.data.message)
+        setSubmitting(false)
         setLoading1(false)
-        setShowEmailForm(false)
-      }, 1000)
+      }
     },
   })
 
   const [loading2, setLoading2] = useState(false)
-
   const formik2 = useFormik<IUpdatePassword>({
     initialValues: {
       ...passwordUpdateData,
@@ -97,7 +170,7 @@ const SignInMethod: React.FC = () => {
           <div className='d-flex flex-wrap align-items-center'>
             <div id='kt_signin_email' className={' ' + (showEmailForm && 'd-none')}>
               <div className='fs-6 fw-bold mb-1'>Email Address</div>
-              <div className='fw-semibold text-gray-600'>support@keenthemes.com</div>
+              <div className='fw-semibold text-gray-600'>{user?.email ? user.email : ''}</div>
             </div>
 
             <div
@@ -316,7 +389,7 @@ const SignInMethod: React.FC = () => {
             </div>
           </div>
 
-          <div className='notice d-flex bg-light-primary rounded border-primary border border-dashed p-6'>
+          {/* <div className='notice d-flex bg-light-primary rounded border-primary border border-dashed p-6'>
             <KTSVG
               path='/media/icons/duotune/general/gen048.svg'
               className='svg-icon-2tx svg-icon-primary me-4'
@@ -338,9 +411,33 @@ const SignInMethod: React.FC = () => {
                 Enable
               </a>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
+      <Modal
+        show={show1}
+        title='Enter OTP'
+        close={toggle}
+        ok='Submit'
+        cancel='Cancel'
+        content={<OtpInput value={otp} valueLength={6} onChange={otpData} />}
+        submit={submitOtp}
+        showBtn={showBtn}
+        isValid={isValid}
+        invalidMsg={invalidMsg}
+        BtnMsg='Resend OTP'
+        BtnClick={ResendOtp}
+      />
+
+      <Modal
+        show={showSuccess}
+        title='Success'
+        close={toggle}
+        ok='Ok'
+        cancel=''
+        content='Email Updated'
+        submit={gotoAuth}
+      />
     </div>
   )
 }

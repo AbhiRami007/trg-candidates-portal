@@ -77,7 +77,7 @@ export function Registration() {
   }
 
   const ResendOtp = async () => {
-    await resendOtp(email)
+    await resendOtp(email, '')
     setShowBtn(false)
   }
 
@@ -132,7 +132,7 @@ export function Registration() {
           <h1 className='text-theme mb-1'>Create an Account</h1>
           <div className='text-gray-400 fw-semibold fs-4'>
             Have an account?{' '}
-            <Link to='/auth/login' className='text-theme-yellow fw-bold'>
+            <Link to='/auth/forgot-password' className='text-theme-yellow fw-bold'>
               Forgot Password ?
             </Link>
           </div>
