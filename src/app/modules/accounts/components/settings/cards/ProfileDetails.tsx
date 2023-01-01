@@ -67,8 +67,6 @@ const ProfileDetails: React.FC = () => {
     initialValues,
     validationSchema: profileDetailsSchema,
     onSubmit: (values) => {
-      debugger
-      setLoading(true)
       setTimeout(() => {
         const updatedData = Object.assign(data, values)
         setData(updatedData)
@@ -116,10 +114,18 @@ const ProfileDetails: React.FC = () => {
 
               <div className='col-lg-8'>
                 <div className='image-input image-input-outline' data-kt-image-input='true'>
-                  <img
+                  {/* <img
                     className='image-input-wrapper w-125px h-125px'
                     src={user.avatar ? avatar : toAbsoluteUrl('/media/avatars/blank.png')}
-                  />
+                  /> */}
+                  {user.avatar ? (
+                    user.avatar
+                  ) : (
+                    <img
+                      className='image-input-wrapper w-125px h-125px'
+                      src={toAbsoluteUrl('/media/avatars/blank.png')}
+                    />
+                  )}
 
                   <label
                     className='btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow'

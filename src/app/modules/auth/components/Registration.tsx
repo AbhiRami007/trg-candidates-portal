@@ -65,7 +65,6 @@ export function Registration() {
   }
   const otpData = (value: string) => setOtp(value)
   const submitOtp = async () => {
-    debugger
     const verifyOtp = await verifyEmailOtp(Number(otp), email)
     if (verifyOtp.data) {
       setShow1(false)
@@ -90,7 +89,6 @@ export function Registration() {
     initialValues,
     validationSchema: registrationSchema,
     onSubmit: async (values, {setStatus, setSubmitting}) => {
-      debugger
       setLoading(true)
       try {
         const {data: auth} = await register(
@@ -108,12 +106,9 @@ export function Registration() {
           setShow1(true)
         }
       } catch (error) {
-        debugger
         console.error(error)
         saveAuth(undefined)
-        if (error instanceof Error) {
-          setStatus(error.message)
-        }
+        setStatus(error.response.data.message)
         setSubmitting(false)
         setLoading(false)
       }

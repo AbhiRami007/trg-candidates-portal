@@ -1,18 +1,27 @@
 import React, {useEffect, useState} from 'react'
-import {Link, useNavigate} from 'react-router-dom'
+import {Link, useLocation, useNavigate} from 'react-router-dom'
 import {AUTH_LOCAL_STORAGE_KEY} from '../../auth'
 import {getUserDataById} from '../../auth/core/_requests'
 
 export const Overview = () => {
   const navigate = useNavigate()
-  const [user, setUser]: any = useState({})
+  const [user, setUser]: any = useState()
   useEffect(() => {
-    const userData = localStorage.getItem(AUTH_LOCAL_STORAGE_KEY)
-    if (userData) {
-      setUser(JSON.parse(userData).userId)
-    } else {
-      navigate('/auth/login')
+    const getUser = async () => {
+      try {
+        let userData: any = localStorage.getItem(AUTH_LOCAL_STORAGE_KEY)
+        const id = JSON.parse(userData).userId
+        userData = await getUserDataById(id)
+        if (userData.data) {
+          setUser(userData.data.data)
+        } else {
+          navigate('/auth/login')
+        }
+      } catch (e) {
+        console.log(e)
+      }
     }
+    getUser()
   }, [])
 
   return (
@@ -28,114 +37,120 @@ export const Overview = () => {
           </Link>
         </div>
 
-        <div className='card-body p-9'>
-          <div className='row mb-7'>
-            <label className='col-lg-4 fw-bold text-muted'>Full Name</label>
+        {user && (
+          <div className='card-body p-9'>
+            <div className='row mb-7'>
+              <label className='col-lg-4 fw-bold text-muted'>Full Name</label>
 
-            <div className='col-lg-8'>
-              <span className='fw-bolder fs-6 text-dark'>
-                {user.first_name + ' ' + user.last_name}
-              </span>
+              <div className='col-lg-8'>
+                <span className='fw-bolder fs-6 text-dark'>
+                  {user.first_name + ' ' + user.last_name}
+                </span>
+              </div>
+            </div>
+
+            <div className='row mb-7'>
+              <label className='col-lg-4 fw-bold text-muted'>Position</label>
+
+              <div className='col-lg-8 fv-row'>
+                <span className='fw-bold fs-6'>
+                  {user.position ? user.position : 'Not Updated'}
+                </span>
+              </div>
+            </div>
+            <div className='row mb-7'>
+              <label className='col-lg-4 fw-bold text-muted'>
+                Contact
+                <i
+                  className='fas fa-exclamation-circle ms-1 fs-7'
+                  data-bs-toggle='tooltip'
+                  title='Phone number must be active'
+                ></i>
+              </label>
+
+              <div className='col-lg-8 d-flex align-items-center'>
+                <span className='fw-bolder fs-6 me-2'>
+                  {user.phone ? user.phone : 'Not Updated'}
+                </span>
+
+                {user.phone && user.phoneVerified ? (
+                  <span className='badge badge-success'>Verified</span>
+                ) : (
+                  user.phone &&
+                  !user.phoneVerified && <span className='badge badge-danger'>Not Verified</span>
+                )}
+              </div>
+            </div>
+
+            <div className='row mb-7'>
+              <label className='col-lg-4 fw-bold text-muted'>Current Company</label>
+
+              <div className='col-lg-8 fv-row'>
+                <span className='fw-bold fs-6'>{user.company ? user.company : 'Not Updated'}</span>
+              </div>
+            </div>
+            <div className='row mb-7'>
+              <label className='col-lg-4 fw-bold text-muted'>Company Site</label>
+
+              <div className='col-lg-8'>
+                {user.company_url ? (
+                  <a href={user.company_url} className='fw-bold fs-6 text-dark text-hover-primary'>
+                    {user.company_url}
+                  </a>
+                ) : (
+                  <span className='fw-bolder fs-6 me-2'>Not Updated</span>
+                )}
+              </div>
+            </div>
+
+            <div className='row mb-7'>
+              <label className='col-lg-4 fw-bold text-muted'>
+                Country
+                <i
+                  className='fas fa-exclamation-circle ms-1 fs-7'
+                  data-bs-toggle='tooltip'
+                  title='Country of origination'
+                ></i>
+              </label>
+
+              <div className='col-lg-8'>
+                <span className='fw-bolder fs-6 text-dark'>
+                  {user.country ? user.country : 'Not Updated'}
+                </span>
+              </div>
+            </div>
+
+            <div className='row mb-7'>
+              <label className='col-lg-4 fw-bold text-muted'>Language</label>
+
+              <div className='col-lg-8'>
+                <span className='fw-bolder fs-6 text-dark'>
+                  {user.language ? user.language : 'Not Updated'}
+                </span>
+              </div>
+            </div>
+
+            <div className='row mb-7'>
+              <label className='col-lg-4 fw-bold text-muted'>Time Zone</label>
+
+              <div className='col-lg-8'>
+                <span className='fw-bolder fs-6 text-dark'>
+                  {user.time_zone ? user.time_zone : 'Not Updated'}
+                </span>
+              </div>
+            </div>
+
+            <div className='row mb-7'>
+              <label className='col-lg-4 fw-bold text-muted'>Currency</label>
+
+              <div className='col-lg-8'>
+                <span className='fw-bolder fs-6 text-dark'>
+                  {user.currency ? user.currency : 'Not Updated'}
+                </span>
+              </div>
             </div>
           </div>
-
-          <div className='row mb-7'>
-            <label className='col-lg-4 fw-bold text-muted'>Position</label>
-
-            <div className='col-lg-8 fv-row'>
-              <span className='fw-bold fs-6'>{user.position ? user.position : 'Not Updated'}</span>
-            </div>
-          </div>
-          <div className='row mb-7'>
-            <label className='col-lg-4 fw-bold text-muted'>
-              Contact
-              <i
-                className='fas fa-exclamation-circle ms-1 fs-7'
-                data-bs-toggle='tooltip'
-                title='Phone number must be active'
-              ></i>
-            </label>
-
-            <div className='col-lg-8 d-flex align-items-center'>
-              <span className='fw-bolder fs-6 me-2'>{user.phone ? user.phone : 'Not Updated'}</span>
-
-              {user.phone && user.phoneVerified ? (
-                <span className='badge badge-success'>Verified</span>
-              ) : (
-                user.phone &&
-                !user.phoneVerified && <span className='badge badge-danger'>Not Verified</span>
-              )}
-            </div>
-          </div>
-
-          <div className='row mb-7'>
-            <label className='col-lg-4 fw-bold text-muted'>Current Company</label>
-
-            <div className='col-lg-8 fv-row'>
-              <span className='fw-bold fs-6'>{user.company ? user.company : 'Not Updated'}</span>
-            </div>
-          </div>
-          <div className='row mb-7'>
-            <label className='col-lg-4 fw-bold text-muted'>Company Site</label>
-
-            <div className='col-lg-8'>
-              {user.company_url ? (
-                <a href={user.company_url} className='fw-bold fs-6 text-dark text-hover-primary'>
-                  {user.company_url}
-                </a>
-              ) : (
-                <span className='fw-bolder fs-6 me-2'>Not Updated</span>
-              )}
-            </div>
-          </div>
-
-          <div className='row mb-7'>
-            <label className='col-lg-4 fw-bold text-muted'>
-              Country
-              <i
-                className='fas fa-exclamation-circle ms-1 fs-7'
-                data-bs-toggle='tooltip'
-                title='Country of origination'
-              ></i>
-            </label>
-
-            <div className='col-lg-8'>
-              <span className='fw-bolder fs-6 text-dark'>
-                {user.country ? user.country : 'Not Updated'}
-              </span>
-            </div>
-          </div>
-
-          <div className='row mb-7'>
-            <label className='col-lg-4 fw-bold text-muted'>Language</label>
-
-            <div className='col-lg-8'>
-              <span className='fw-bolder fs-6 text-dark'>
-                {user.language ? user.language : 'Not Updated'}
-              </span>
-            </div>
-          </div>
-
-          <div className='row mb-7'>
-            <label className='col-lg-4 fw-bold text-muted'>Time Zone</label>
-
-            <div className='col-lg-8'>
-              <span className='fw-bolder fs-6 text-dark'>
-                {user.time_zone ? user.time_zone : 'Not Updated'}
-              </span>
-            </div>
-          </div>
-
-          <div className='row mb-7'>
-            <label className='col-lg-4 fw-bold text-muted'>Currency</label>
-
-            <div className='col-lg-8'>
-              <span className='fw-bolder fs-6 text-dark'>
-                {user.currency ? user.currency : 'Not Updated'}
-              </span>
-            </div>
-          </div>
-        </div>
+        )}
       </div>
     </>
   )

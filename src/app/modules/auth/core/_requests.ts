@@ -70,7 +70,6 @@ export function getUserDataById(id: string) {
 }
 
 export function getUserProfile(user: string, image:string ) {
-  debugger;
   return axios.get<UserModel>(GET_USER_IMAGE+'/'+user+"/"+image)
 }
 

@@ -47,7 +47,6 @@ export function Login() {
         saveAuth(auth)
         const {data: user} = await getUserByToken(auth.api_token)
         if (user) {
-          debugger
           if (user.avatar) {
             const {data: profile} = await getUserProfile(values.email, user.avatar)
             console.log(profile)

@@ -24,7 +24,6 @@ const AuthNav = () => {
   }, [localStorage.getItem('userData')])
 
   const changeActive = (e: any) => {
-    debugger
     if (e.target.id == 'dashboard') {
       setDashActive(true)
       setAppliedActive(false)
