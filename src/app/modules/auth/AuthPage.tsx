@@ -6,6 +6,7 @@ import {ForgotPassword} from './components/ForgotPassword'
 import {Login} from './components/Login'
 import {AuthNav} from './AuthNav'
 import {PasswordReset} from './components/PasswordReset'
+import {toAbsoluteUrl} from '../../../_metronic/helpers/AssetHelpers'
 
 const AuthLayout = () => {
   useEffect(() => {
@@ -56,9 +57,19 @@ const AuthLayout = () => {
               </div>
             </div>
           </div>
-          <div className='two bg-color-theme'>
-            {/* <img src={toAbsoluteUrl('/media/website/decoration-star.svg')} /> */}
-          </div>
+
+          {/* <div
+            className='two'
+            style={{backgroundImage: `url(${toAbsoluteUrl('/media/backgrounds/trg-bg-22.png')})`}}
+          ></div> */}
+          <div
+            className='two'
+            aria-hidden='true'
+            style={{
+              backgroundImage: `url(${toAbsoluteUrl('/media/backgrounds/trg-bg-2.png')})`,
+            }}
+          ></div>
+          {/* <div className='two'></div> */}
         </div>
 
         {/* end::Content */}
